@@ -1,16 +1,192 @@
 {
-  "posts":[
+  "model": {
+    "parameters": [
+      {
+        
+      },
+      {
+       
+      }
+    ],
+    "energies": [
+      
+    ]
+  },
+  "elements": [
     {
-      "id" : 0,
-      "title": "First post!",
-      "content" : "My first content!"
+      "element_name": "Source",
+      
+      "techs": {
+        "ccgt": {
+          "essentials": {
+            "name": "Source",
+            "color": "",
+            "parent": "supply",
+            "carrier_out": "power"
+          },
+          "constraints": {
+            "resource": "inf",
+            "energy_eff": 0.5,
+            "energy_cap_max": 40000,
+            "energy_cap_max_systemwide": 100000,
+            "energy_ramping": 0.8,
+            "lifetime": 25
+          },
+          "costs": {
+            "monetary": {
+              "interest_rate": 0.1,
+              "energy_cap": 750,
+              "om_con": 0.02
+            }
+          }
+        },
+        "csp" : {
+
+          "essentials": {
+                "name": "Concentrating solar power",
+                "color": "#F9CF22",
+                "parent": "supply_plus",
+                "carrier_out": "power"
+          },
+          "constraints": {
+                "storage_cap_max": 614033,
+                "energy_cap_per_storage_cap_max": 1,
+                "storage_loss": 0.002,
+                "resource": "file=csp_resource.csv:region1",
+                "resource_unit": "energy_per_area",
+                "energy_eff": 0.4,
+                "parasitic_eff": 0.9,
+                "resource_area_max": "inf",
+                "energy_cap_max": 10000,
+                "lifetime": 25
+          },
+          "costs": {
+              "monetary": {
+                    "interest_rate": 0.10,
+                    "storage_cap": 50,
+                    "resource_area": 200,
+                    "resource_cap": 200,
+                    "energy_cap": 1000,
+                    "om_prod": 0.002
+                  }
+              }
+            },
+            "pv": {
+              "essentials": {
+                "name": "Solar photovoltaic power",
+                "color": "#F9D956",
+                "parent": "supply_plus",
+                "carrier_out": "power"
+              },
+             "constraints": {
+                
+                "resource": "file=pv_resource.csv:per_cap",
+                "resource_unit": "energy_per_cap",
+                "energy_eff": 1,
+                "energy_cap_max": 150000,
+                "lifetime": 25
+              },
+              "costs": {
+                "monetary": {
+                  "interest_rate": 0.1,
+                  "energy_cap": 1350,
+                   "om_con": 0.002,
+                   "om_prod": 0.002
+                }
+              }
+            }
     }
+  },
+    {
+      "element_name": "Consumption",
+      "demand_power": {
+        "essentials": {
+          "name": "Power demand",
+          "color": "#072486",
+          "parent": "demand",
+          "carrier": "power"
+        },
+        "constraints": {
+          "resource": "file=demand-1.csv:demand"
+         
+        }
+      }
+    },
+    {
+      "element_name": "Transform",
+      "boiler":{
+        "essentials": {
+            "name": "Natural gas boiler",
+            "color": "#8E2999",
+            "parent": "conversion"
+            
+        },
+        "constraints":{
+            "energy_cap_max": 600,
+            "energy_eff": 0.85,
+            "lifetime": 25
+          } ,
+        "costs":{
+            "monetary": {
+            "interest_rate": 0.10,
+            "om_con": 0.004 
+            }
+          }
+        }
+      },
+       
+    {
+      "element_name": "Storage",
+      "battery": {
+        "essentials": {
+          "name": "Battery storage",
+          "color": "#3B61E3",
+          "parent": "storage",
+          "carrier": "power"
+        },
+        "constraints": {
+          "energy_cap_max": 1000,
+          "storage_cap_max": "inf",
+          "energy_cap_per_storage_cap_max": 4,
+          "energy_eff": 0.95,
+          "storage_loss": 0,
+          "lifetime": 25
+        },
+        "costs": {
+          "monetary": {
+            "interest_rate": 0.1,
+            "storage_cap": 200
+          }
+        }
+      }
+    }
+ 
   ],
-  "comments" : [
+  "carrier": [
     {
-      "id": 0,
-      "content": "Wow such content!",
-      "username": "zero_cool"
-    }
+      "id": "69c1e1c4-ad7f-416b-8079-8f5a384340a8",
+      "name": "heat",
+      "color": "#C13735"
+    },
+    {
+      "id": "5d13faae-0ef4-4787-9e56-6ede675a06cb",
+      "name": "electricity",
+      "color": "#88B41C"
+    },
+    {
+      "id": "a1817e8c-0f09-42bd-b981-4ca532161e0a",
+      "name": "biomass",
+      "color": "#24A91D"
+    },
+    {
+      "id": "23fbbaa9-cc1b-4746-950a-e234d4ab9114",
+      "name": "gas",
+      "color": "#DBA21F"
+    },
+    {
+      "id": "f0e01271-084d-4640-8233-aa7ec53d21c0",
+      "name": "waste",
+      "color": "#6A009C"
+    } 
   ]
 }
